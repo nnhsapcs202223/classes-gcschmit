@@ -42,7 +42,14 @@ public class MileageTracker
      */
     public MileageTracker()
     {
-        
+        /*
+         * The "this" reserved word reference the current object
+         *      (like "self" in Python)
+         *  Its usage is encouraged but not always required.
+         */
+        this.distanceDriven = 0;
+        this.fuelConsumed = 0;
+        this.vin = null;
     }
     
     /**
@@ -54,14 +61,10 @@ public class MileageTracker
      */
     public MileageTracker(int initialDistanceDriven, int initialFuelConsumed)
     {
-        
+        this.distanceDriven = initialDistanceDriven;
+        this.fuelConsumed = initialFuelConsumed;
+        this.vin = null;
     }
-    
-    
-    
-    
-    
-    
     
     /*
      * 1. Define methods by specifying:
@@ -78,7 +81,8 @@ public class MileageTracker
      */
     public void incrementDistanceDriven(int miles)
     {
-        
+        //this.distanceDriven = this.distanceDriven + miles;
+        this.distanceDriven += miles;
     }
     
     /**
@@ -88,7 +92,7 @@ public class MileageTracker
      */
     public int getDistanceDriven()
     {
-        return 0;
+        return this.distanceDriven;
     }
     
     /**
@@ -98,7 +102,7 @@ public class MileageTracker
      */
     public void incrementFuelConsumed(int gallons)
     {
-        //this.fuelConsumed += gallons;
+        this.fuelConsumed += gallons;
     }
     
     /**
@@ -108,8 +112,7 @@ public class MileageTracker
      */
     public int getFuelConsumed()
     {
-        //return this.fuelConsumed;
-        return 0;
+        return this.fuelConsumed;
     }
     
     
@@ -120,9 +123,8 @@ public class MileageTracker
      */
     public int getMileage()
     {
-        //double mileage = this.fuelConsumed / this.distanceDriven;
-        //return mileage;
-        return 0;
+        int mileage = this.distanceDriven / this.fuelConsumed;
+        return mileage;
     }
     
     /**
@@ -132,8 +134,7 @@ public class MileageTracker
      */
     public String getVIN()
     {
-        //return this.vin;
-        return "";
+        return this.vin;
     }
     
     /**
@@ -141,9 +142,29 @@ public class MileageTracker
      * 
      * @param vin    the vehicle identification (VIN) of this car
      */
-    public void setVIN(String vin)
+    public void setVIN(String newVIN)
     {
+        /*
+         * If the parameter is named vin, it would "shadow" the
+         *      instance variable vin.
+         *      
+         *  Local and parameter variables "shadow" instance variables
+         *      of the same name. In this code, vin would refer to the
+         *      parameter and not the instance variable.
+         *      
+         *  To refer explicitly to an instance variable, use "this".
+         *  
+         *  Better practice: avoid this issue by giving local, parameter,
+         *      and instance variables unique names!
+         */
+        // bad
         //vin = vin;
+        
+        // good
+        //this.vin = vin;
+        
+        // better
+        this.vin = newVIN;
     }
 }
 

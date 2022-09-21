@@ -166,6 +166,27 @@ public class MileageTracker
         // better
         this.vin = newVIN;
     }
+    
+    /**
+     * This method is automatically called by the println method and
+     *  generates a String that reports the values of its attributes.
+     *  
+     *  @return a String that reports the values of its attributes
+     */
+    public String toString()
+    {
+        String str = "[VIN: " + this.getVIN() +
+                "; distance driven: " + this.getDistanceDriven() + " miles" +
+                "; fuel consumed: " + this.getFuelConsumed() + " gallons" +
+                "; mileage: " + this.getMileage() + " mpg]";
+        return str;
+    }
+    
+    public static void main(String[] args)
+    {
+        MileageTracker tracker = new MileageTracker(100, 4);
+        System.out.println(tracker);
+    }
 }
 
 

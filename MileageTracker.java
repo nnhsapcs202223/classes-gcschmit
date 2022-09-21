@@ -168,6 +168,30 @@ public class MileageTracker
         // better
         this.vin = newVIN;
     }
+    
+    /**
+     * The toString method is called automatically when Java needs to
+     *      convert the object to a string. The toString method returns
+     *      a string that contains, in general, all of the instance
+     *      variables and their values.
+     *      
+     *  @return a string that contains, in general, all of the instance
+     *      variables and their values.
+     */
+    public String toString()
+    {
+        String str = new String("[VIN: " + this.getVIN() +
+                "; distance driven: " + this.getDistanceDriven() + " miles" +
+                "; fuel consumed: " + this.getFuelConsumed() + " gallons" +
+                "; mileage: " + this.getMileage() + " mpg]");
+        return str;
+    }
+    
+    public static void main(String[] args)
+    {
+        MileageTracker tracker = new MileageTracker(100, 4);
+        System.out.println(tracker);
+    }
 }
 
 

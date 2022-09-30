@@ -63,5 +63,10 @@ public class CaesarCipherDemo
          *  The nextDouble method behaves in the same way for doubles.
          */
         int secondsPerGuess = s.nextInt();
+        
+        CaesarCipher cipher = new CaesarCipher(keyphrase);
+        String complexityDesc = cipher.getComplexityDescription(secondsPerGuess);
+        System.out.println("Complexity: " + complexityDesc);
+        
     }
 }

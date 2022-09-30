@@ -14,9 +14,98 @@ public class CaesarCipher
     
     private String keyphrase;
     
+    /**
+     * Returns a string that describes the average time to crack the cipher,
+     *      in several formats, based on the specified number of seconds per guess.
+     *      
+     *  @param secPerGuess the number of seconds to evaluate each attempt
+     *  @return a string that describes the average time to crack the cipher
+     */
+    public String getComplexityDescription(int secPerGuess)
+    {
+        /*
+         * Instead of using a "magic number" (e.g., 3.14159), use constants defined
+         *      by us or the Java Standard Library. For example, in the Math class
+         *      is defined:
+         *      
+         *      public static final double PI = 3.141592654;
+         *      
+         *  Declare a constant with the final keyword.
+         *      By convention, constants are in all caps with underscores.
+         */
+        final int SECONDS_FOR_EVERY_MINUTE = 60;
+        final int MINUTES_FOR_EVERY_HOUR = 60;
+        final int HOURS_FOR_EVERY_DAY = 24;
+        final int DAYS_FOR_EVERY_YEAR = 365;
+        
+        // if we try to change the value, a compiler error will be generated
+        //SECONDS_FOR_EVERY_MINUTE = 30;
+        
+        String desc = "";
+        
+        // one method in a class can invoke another method in the same class
+        //  we invoke the method on "this"
+        long totalSeconds = this.calculateAverageTimeToCrack(secPerGuess);
+        
+        /*
+         * Use integer division to calculate how many whole minutes are in the
+         *      specified number of seconds.
+         *      
+         *  Integer division (like // operator in Python) discards the remainder (truncates).
+         *  
+         *  Java does integer division when both operands are integer types;
+         *      floating-point division when one or both operands are floating-point types.
+         *      
+         *  For example:
+         *      3 / 4 => 0          (3 and 4 are int literals)
+         *      3.0 / 4 => 0.75     (3.0 is a double literal)
+         */
+        long wholeMinutes = totalSeconds / SECONDS_FOR_EVERY_MINUTE;
+        
+        /*
+         * Use modulo (mod, remainder) operator to calculate how many seconds are
+         *      leftover.
+         *      
+         *  The mod operator (%) returns the remainder of the division operation.
+         *  
+         *  It can very useful when paired with integer division.
+         *  
+         *  For example:
+         *      7 % 2 => 1
+         *      11 % 3 => 2
+         *      6 % 2 => 0
+         *      4 % 11 => 4
+         *      
+         *  % 2 is frequently used to test odd/even (odd => 1; even => 0)
+         */
+        long leftoverSeconds = totalSeconds % SECONDS_FOR_EVERY_MINUTE;
+        
+        long wholeHours = wholeMinutes / MINUTES_FOR_EVERY_HOUR;
+        long leftoverMinutes = wholeMinutes % MINUTES_FOR_EVERY_HOUR;
     
+        long wholeDays = wholeHours / HOURS_FOR_EVERY_DAY;
+        long leftoverHours = wholeHours % HOURS_FOR_EVERY_DAY;
     
+        long wholeYears = wholeDays / DAYS_FOR_EVERY_YEAR;
+        long leftoverDays = wholeDays % DAYS_FOR_EVERY_YEAR;
     
+        desc = "Average time to crack: " + wholeYears + " years, " + leftoverDays +
+        " days, " + leftoverHours + " hours, " + leftoverMinutes + " minutes, " +
+        leftoverSeconds + " seconds\n";
+        
+        /*
+         * A conversion is when a data value is coverted from one type to another
+         *      (e.g., int to a double; double to an int; int to a long)
+         *      
+         *  Widening: preserves information (e.g., int to a double, int to a long)
+         *  Narrowing: lossy; may lose information (e.g., double to an int)
+         *  
+         *  Java only automatically performs widening conversions.
+         */
+        double yearsAsDecimal = totalSeconds;
+    
+        return desc;
+    }
     
     /**
      * Encrypts the specified text using the specified keyphrase using a

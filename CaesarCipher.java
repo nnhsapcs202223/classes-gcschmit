@@ -111,10 +111,45 @@ public class CaesarCipher
          *  If the two operands are of different types, Java attemps to promote one
          *      of the operands (widening conversion) and then performs the operation.
          *      
-         *  
+         *  In this case, both SECONDS_FOR_EVERY_MINUTE and MINUTES_FOR_EVERY_HOUR are ints;
+         *      so, Java doesn't perform any promotion, and instead performs the
+         *      multiplication and returns the result as an int. Only after all three
+         *      multiplications does Java promote the int value of the resulting product
+         *      to a long and then assigns it to SECONDS_FOR_EVERY_YEAR.
+         *      
+         *  This promotion may be too late! If the multiplication overflows an int,
+         *      the wrong value will be promoted to a long and stored.
          */
         final long SECONDS_FOR_EVERY_YEAR = SECONDS_FOR_EVERY_MINUTE *
                 MINUTES_FOR_EVERY_HOUR * HOURS_FOR_EVERY_DAY * DAYS_FOR_EVERY_YEAR;
+        
+        /*
+         * In this example, the value of SECONDS_FOR_EVERY_YEAR is promoted to a double
+         *      and then floating-point division is performed and teh result assigned to
+         *      yearsAsDecimal.
+         *      
+         *  The local variable SECONDS_FOR_EVERY_YEAR is still a long and still has
+         *      the same value.
+         */
+        yearsAsDecimal = yearsAsDecimal / SECONDS_FOR_EVERY_YEAR;
+        desc += "or " + yearsAsDecimal + " years\n";
+        
+        /*
+         * To force a conversion, use the cast operator.
+         *      A cast is the "I know what I'm going, trust me" coversion.
+         *      
+         *  (int)84.69 => truncates to an int with a value of 84
+         *  (int)(3.6 + 0.5) => truncating 4.1 to an int with a value of 4
+         *  
+         *  If we want to round a double to the nearest integer, one approach is to
+         *      add 0.5 and tehn case the result to an integer, which truncates the
+         *      decimal portion.
+         *      
+         *  The following divides yearsAsDecimal by 10, then rounds the resulting long
+         *      to an int.
+         */
+        int decades = (int)((yearsAsDecimal / 10) + 0.5);
+        desc += "or about " + decades + " decades\n";
         
         return desc;
     }

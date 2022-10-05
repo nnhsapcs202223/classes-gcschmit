@@ -17,7 +17,7 @@ public class CaesarCipher
     public CaesarCipher(String initialKeyphrase)
     {
         // prepare the keyphrase by removing duplicate letters
-        //this.compressKeyphrase(initialKeyphrase);
+        this.compressKeyphrase(initialKeyphrase);
     }
     
     /**
@@ -157,6 +157,88 @@ public class CaesarCipher
         desc += "or about " + decades + " decades\n";
 
         return desc;
+    }
+    
+    /**
+     * Compress the specified keyphrase by removing all duplicated letters.
+     * 
+     * @param initKeyphrase the keyphrase to comporess
+     */
+    private void compressKeyphrase(String initKeyphrase)
+    {
+        this.keyphrase = "";
+        
+        /*
+         * length
+         *      returns the number of characters in the string
+         */
+        int keyphraseLength = initKeyphrase.length();
+        
+        for(int i = 0; i < keyphraseLength; i++)
+        {
+            /*
+             * charAt
+             *      returns the character (of type char) at the specified index (0-based)
+             *  
+             *  initKeyphrase:
+             *  C A E S A R
+             *  0 1 2 3 4 5         <= indicies
+             *  
+             *  length: 6
+             */
+            char letter = initKeyphrase.charAt(i);
+            
+            /*
+             * substring
+             *      returns part of the string starting at the first specified index
+             *          up to, but not including, the second specified index
+             *      if only one index is specified, returns part of the string starting
+             *          at the specified index through the end of the string
+             *      substring does not support negative indicies
+             *          For example, instead of -2, we would specify
+             *              initKeyphrase.length() - 2
+             *  
+             *  initKeyphrase:
+             *  C A E S A R
+             *  0 1 2 3 4 5         <= indicies
+             *  
+             *  length: 6
+             */
+            String restOfKeyphrase = initKeyphrase.substring(i + 1);
+            // same as: initKeyphrase.substring(i + 1, initKeyphrase.length());
+            
+            /*
+             * indexOf
+             *      returns the index of the start of the first occurrence of the
+             *          specified string
+             *      if not found, returns -1
+             *      
+             *  restOfKeyphrase:
+             *  A E S A R
+             *  0 1 2 3 4       <= indicies
+             *  
+             *  length: 5
+             */
+            int index = restOfKeyphrase.indexOf(letter);
+            
+            /*
+             * String concatenation
+             *      + is the string concatentation operator
+             *      concatenates the second String operand to the end of the first
+             *          String operand and returns a reference to a new String
+             *      if one of both operands are a String type, + is the string
+             *          concatenation operator (operands are converted to String
+             *          objects); otherwise, + is the addition operator
+             *          
+             *  int x = 7;
+             *  String xAsString = "" + x;          // xAsString => "7"
+             */
+            if(index == -1)     // if the letter is not a duplicate
+            {
+                this.keyphrase = this.keyphrase + letter;
+                // same as: this.keyphrase += letter;
+            }
+        }
     }
     
     

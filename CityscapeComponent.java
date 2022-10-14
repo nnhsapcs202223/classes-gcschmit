@@ -16,7 +16,7 @@ public class CityscapeComponent extends JComponent
     
     
     
-    // define the CityscapeComponent contructor and intiailize all instance variables
+    // define the CityscapeComponent constructor and intiailize all instance variables
     // ...
     
     

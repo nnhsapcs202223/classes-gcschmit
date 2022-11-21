@@ -11,12 +11,12 @@ import javax.swing.JComponent;
  */
 public class CityscapeComponent extends JComponent
 {
-    // define the objects in your Cityscape as instance variables
+    // declare the objects in your Cityscape as instance variables
     // ...
     
     
     
-    // define the CityscapeComponent contructor and intiailize all instance variables
+    // define the CityscapeComponent constructor and intiailize all instance variables
     // ...
     
     
